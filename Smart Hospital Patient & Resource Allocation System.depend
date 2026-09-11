@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1789101544 source:c:\users\admin\desktop\smart hospital patient & resource allocation system\smart hospital patient & resource allocation system\main.c
+	<stdio.h>
+	"menu.h"
+
+1789048310 source:c:\users\admin\desktop\smart hospital patient & resource allocation system\smart hospital patient & resource allocation system\test.c
+
+1789101624 source:c:\users\admin\desktop\smart hospital patient & resource allocation system\smart hospital patient & resource allocation system\menu.c
+	<stdio.h>
+
+1789101624 c:\users\admin\desktop\smart hospital patient & resource allocation system\smart hospital patient & resource allocation system\menu.h
+

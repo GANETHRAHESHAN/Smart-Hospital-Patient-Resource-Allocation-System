@@ -1,8 +1,15 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include "menu.h"
 
-int main()
-{
-    printf("Hello world!\n");
+int main() {
+    int choice;
+
+
+    do {
+        systemMenu();
+        scanf("%d", &choice);
+
+    } while (choice != 5);
+
     return 0;
 }
