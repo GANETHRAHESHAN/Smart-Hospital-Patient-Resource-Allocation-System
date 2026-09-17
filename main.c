@@ -28,12 +28,13 @@ int bedOccupancy[4][20] = {0};
 
 void registerPatient();
 int findFreeBed(int ward);
+void viewBedStatus(void);
 
 int main()
 {
 
     do {
-    printf("=============================================================\n");
+    printf("\n=============================================================\n");
     printf("     SMART HOSPITAL PATIENT & RESOURCE ALLOCATION SYSTEM\n");
     printf("=============================================================\n");
     printf("1. Register New Patient\n");
@@ -47,6 +48,8 @@ int main()
 
     switch (choice) {
     case 1:registerPatient();
+    break;
+    case 2:viewBedStatus();
     break;
 
     default:
@@ -153,4 +156,18 @@ int findFreeBed(int ward)
     }
     return -1;
 
+}
+
+void viewBedStatus(void)
+{
+    printf("---Bed Occupancy Status---\n");
+    for (int w=0; w<4; w++)
+    {
+        printf("\n%s (Capacity: %d)\n", wardName[w], bedCapacity[w]);
+        for (int b=0; b<bedCapacity[w]; b++)
+        {
+            printf("%d ", bedOccupancy[w][b]);
+        }
+    }
+    printf("\n1 = Bed is already occupied, 0 = Bed is free");
 }
