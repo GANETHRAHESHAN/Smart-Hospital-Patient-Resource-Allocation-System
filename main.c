@@ -24,6 +24,7 @@ int wardId[100];
 int bedNumber[100];
 int daysAdmitted[100];
 float waitTime[100];
+float surcharge[100];
 
 int bedOccupancy[4][20] = {0};
 
@@ -146,6 +147,17 @@ void registerPatient()
 
         waitTime[i] = queueCount[a] * consultationTime[a];
         queueCount[a]++;
+
+        if (emergencyLevel[i] == 1)
+        {
+            surcharge[i] = 0.00;
+        }else if (emergencyLevel[i] == 2)
+        {
+            surcharge[i] = baseFee[a] * 0.20;
+        }else
+        {
+            surcharge[i] = baseFee[a] * 0.50;
+        }
 
         patientCount++;
 
