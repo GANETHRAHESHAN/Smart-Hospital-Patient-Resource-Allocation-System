@@ -87,8 +87,9 @@ void registerPatient()
         printf("--- Patient Registration ---\n");
 
         printf("Patient Name: \n");
-        getchar() != '\n';
+        while (getchar() != '\n');
         fgets(patientName[i], 50, stdin);
+        patientName[i][strcspn(patientName[i], "\n")] = 0;
 
         do
         {
