@@ -23,8 +23,11 @@ int isAdmitted[100];
 int wardId[100];
 int bedNumber[100];
 int daysAdmitted[100];
+float waitTime[100];
 
 int bedOccupancy[4][20] = {0};
+
+int queueCount[4] = {0};
 
 void registerPatient();
 int findFreeBed(int ward);
@@ -138,6 +141,14 @@ void registerPatient()
             bedNumber[i]= -1;
             daysAdmitted[i]=0;
         }
+
+        int a = specialtyId[i] - 1;
+
+        waitTime[i] = queueCount[a] * consultationTime[a];
+        queueCount[a]++;
+
+        patientCount++;
+
         printf("Patient Registration successfull\n\n\n");
 
 
