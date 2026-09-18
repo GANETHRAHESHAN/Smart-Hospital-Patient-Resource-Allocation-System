@@ -27,6 +27,8 @@ float waitTime[100];
 float surcharge[100];
 float wardCost[100];
 float grossTotal[100];
+float discount[100];
+float finalAmount[100];
 
 int bedOccupancy[4][20] = {0};
 
@@ -164,6 +166,17 @@ void registerPatient()
         wardCost[i] = daysAdmitted[i] * daliyBedRate[c];
 
         grossTotal[i] = baseFee[a] + surcharge[i] + wardCost[i];
+
+        if (patientAge<5 || patientAge>65)
+        {
+            discount[i] = grossTotal[i] * 0.15;
+        }else
+        {
+            discount[i] = 0;
+        }
+
+        finalAmount[i] = grossTotal[i] - discount[i];
+
 
 
 
