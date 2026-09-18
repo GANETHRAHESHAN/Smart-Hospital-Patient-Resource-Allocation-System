@@ -37,6 +37,7 @@ int queueCount[4] = {0};
 void registerPatient();
 int findFreeBed(int ward);
 void viewBedStatus(void);
+void displayPriorityQueue(void);
 
 int main()
 {
@@ -58,6 +59,8 @@ int main()
     case 1:registerPatient();
     break;
     case 2:viewBedStatus();
+    break;
+    case 3:displayPriorityQueue();
     break;
 
     default:
@@ -253,5 +256,71 @@ void viewBedStatus(void)
             printf("%d ", bedOccupancy[w][b]);
         }
     }
-    printf("\n1 = Bed is already occupied, 0 = Bed is free");
+    printf("\n1 = Bed is already occupied, 0 = Bed is free\n");
+}
+
+
+void displayPriorityQueue(void)
+{
+    if (patientCount==0)
+    {
+        printf("\nNo Patient Registerd In The System Yet.\n");
+        return;
+    }
+    int sortedOrder[100];
+    for (int i = 0; i<patientCount;i++)
+    {
+        sortedOrder[i] = i;
+    }
+
+    for (int i = 0; i<patientCount - 1; i++)
+    {
+        for (int j = 0; j<patientCount - i - 1; j++)
+        {
+            int currentId = sortedOrder[j];
+            int nextId = sortedOrder[j + 1];
+
+            if (emergencyLevel[currentId]<emergencyLevel[nextId])
+            {
+                int temp = sortedOrder[j];
+                sortedOrder[j] = sortedOrder[j + 1];
+                sortedOrder[j + 1] = temp;
+            }
+        }
+    }
+    printf("\n=========================================================================================\n");
+    printf("                          SMART HOSPITAL - PATIENT PRIORITY QUEUE                       \n");
+    printf("=========================================================================================\n");
+    printf("%-12s %-22s %-6s %-18s %-12s\n", "Patient ID", "Patient Name", "Age", "Emergency Level", "Assigned Bed");
+    printf("-----------------------------------------------------------------------------------------\n");
+
+    for (int i = 0; i < patientCount; i++)
+    {
+        int id = sortedOrder[i];
+        char emergencyText[20];
+        char specialtyText[20];
+        char bedText[15];
+
+        if (emergencyLevel[id] == 3)
+        {
+            strcpy(emergencyText,"Level 3 (Critical)");
+        }else if (emergencyLevel[id] == 2)
+        {
+            strcpy(emergencyText,"Level 2 (Urgent)");
+        }else
+        {
+            strcpy(emergencyText, "Level 1 (Normal)");
+        }
+        if (isAdmitted[id] == 1 && bedNumber[id] != -1)
+        {
+            sprintf(bedText, "Ward %d (Bed #%02d)", wardId[id], bedNumber[id]+1);
+        }else
+        {
+            strcpy(bedText, "Not Admitted");
+        }
+
+            printf("PAT-%d     %-22s %-6d %-18s %-12s\n", 1001 + id, patientName[id], patientAge[id], emergencyText, bedText);
+    }
+    printf("=========================================================================================\n");
+
 }
