@@ -177,12 +177,52 @@ void registerPatient()
 
         finalAmount[i] = grossTotal[i] - discount[i];
 
-
-
-
         patientCount++;
 
+        char emergencyText[3][10] = {"Normal", "Urgent", "Critical"};
+        int emergencyPct = (emergencyLevel[i] == 1) ? 0 : (emergencyLevel[i] == 2 ? 20 : 50);
+
         printf("Patient Registration successfull\n\n\n");
+
+        printf("==============================================================\n");
+        printf("             SMART HOSPITAL ADMISSION & BILL\n");
+        printf("--------------------------------------------------------------\n");
+        printf("Patient ID                  :PAT-%d\n", 1001+i);
+        printf("Patient Name                :%s", patientName[i]);
+        printf("Age                         :%d Years %s\n", patientAge[i], (patientAge[i] < 5 || patientAge[i] > 65) ? "(15% Subsidy Eligible)" : "");
+        printf("Specialty                   :%s\n", specialtyName[a]);
+        if (isAdmitted[i])
+        {
+            printf("Assigned Ward               :%s (Bed #%02d)\n", wardName[wardId[i]-1], bedNumber[i]+1);
+        }else
+        {
+            printf("Assigned ward               :Not Admitted\n");
+        }
+        printf("Urgency Level               :Level %d (%s)\n", emergencyLevel[i], emergencyText[emergencyLevel[i]-1]);
+        printf("--------------------------------------------------------------\n");
+        printf("Base Consultation Fee       :LKR %.2f\n", baseFee[a]);
+        printf("Emergency Surcharge         :LKR %.2f (%d%%)\n", surcharge[i], emergencyPct);
+        if (isAdmitted[i])
+        {
+            printf("Ward Stay Cost (%d days)     :LKR %.2f\n", daysAdmitted[i], wardCost[i]);
+        }else
+        {
+            printf("Ward Stay Cost               :LKR 0.00\n");
+        }
+        printf("--------------------------------------------------------------\n");
+        printf("Gross Total Bill            :LKR %.2f\n", grossTotal[i]);
+        printf("Age Subsidy Discount        :LKR -%.2f (%s)\n",discount[i], discount[i] > 0 ? "15%" : "0%");
+        printf("--------------------------------------------------------------\n");
+        printf("Final Payable Amount        :LKR %.2f\n", finalAmount[i]);
+        if (waitTime[i] == 0)
+        {
+            printf("Estimated Waiting Time      :0.00 mins (Immediate Attention)\n");
+        }else
+        {
+            printf("Estimated Waiting Time      :%.2f mins\n", waitTime[i]);
+        }
+        printf("==============================================================\n");
+
 
 
      }
