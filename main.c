@@ -26,6 +26,7 @@ int daysAdmitted[100];
 float waitTime[100];
 float surcharge[100];
 float wardCost[100];
+float grossTotal[100];
 
 int bedOccupancy[4][20] = {0};
 
@@ -161,6 +162,10 @@ void registerPatient()
         }
         int c = wardId[i] - 1;
         wardCost[i] = daysAdmitted[i] * daliyBedRate[c];
+
+        grossTotal[i] = baseFee[a] + surcharge[i] + wardCost[i];
+
+
 
         patientCount++;
 
