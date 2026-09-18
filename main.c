@@ -171,7 +171,7 @@ void registerPatient()
 
         grossTotal[i] = baseFee[a] + surcharge[i] + wardCost[i];
 
-        if (patientAge<5 || patientAge>65)
+        if (patientAge[i]<5 || patientAge[i]>65)
         {
             discount[i] = grossTotal[i] * 0.15;
         }else
@@ -192,7 +192,7 @@ void registerPatient()
         printf("             SMART HOSPITAL ADMISSION & BILL\n");
         printf("--------------------------------------------------------------\n");
         printf("Patient ID                  :PAT-%d\n", 1001+i);
-        printf("Patient Name                :%s", patientName[i]);
+        printf("Patient Name                :%s\n", patientName[i]);
         printf("Age                         :%d Years %s\n", patientAge[i], (patientAge[i] < 5 || patientAge[i] > 65) ? "(15% Subsidy Eligible)" : "");
         printf("Specialty                   :%s\n", specialtyName[a]);
         if (isAdmitted[i])
