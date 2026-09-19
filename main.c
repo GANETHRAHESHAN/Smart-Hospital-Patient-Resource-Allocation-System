@@ -170,8 +170,15 @@ void registerPatient()
         {
             surcharge[i] = baseFee[a] * 0.50;
         }
-        int c = wardId[i] - 1;
-        wardCost[i] = daysAdmitted[i] * daliyBedRate[c];
+        if (isAdmitted[i] == 1)
+        {
+            int c = wardId[i] - 1;
+            wardCost[i] = daysAdmitted[i] * daliyBedRate[c];
+        }else
+        {
+            wardCost[i] = 0.00;
+        }
+
 
         grossTotal[i] = baseFee[a] + surcharge[i] + wardCost[i];
 
