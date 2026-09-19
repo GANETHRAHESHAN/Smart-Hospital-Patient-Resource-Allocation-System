@@ -65,6 +65,8 @@ int main()
     break;
     case 4:performanceReport();
     break;
+    case 5:printf("Good Bye See you Again\n");
+    break;
     default:
         printf("Invalid choice. Please enter 1-5.\n");
         }
