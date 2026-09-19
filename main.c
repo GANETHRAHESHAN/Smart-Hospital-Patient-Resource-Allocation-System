@@ -38,6 +38,7 @@ void registerPatient();
 int findFreeBed(int ward);
 void viewBedStatus(void);
 void displayPriorityQueue(void);
+void performanceReport(void);
 
 int main()
 {
@@ -62,7 +63,8 @@ int main()
     break;
     case 3:displayPriorityQueue();
     break;
-
+    case 4:performanceReport();
+    break;
     default:
         printf("Invalid choice. Please enter 1-5.\n");
         }
@@ -325,3 +327,49 @@ void displayPriorityQueue(void)
     printf("=========================================================================================\n");
 
 }
+
+void performanceReport(void)
+{
+    if (patientCount == 0)
+    {
+        printf("\nNo Patient Registered Yet.\n");
+        return;
+    }
+    int emergencyCount[4] = {0};
+    float totalRevenue = 0;
+    float totalDiscount = 0;
+    int topPatient =0;
+
+    for (int i = 0; i < patientCount; i++)
+    {
+        emergencyCount[emergencyLevel[i]]++;
+        totalRevenue += finalAmount[i];
+        totalDiscount += discount[i];
+        if (finalAmount[i]>finalAmount[topPatient]) topPatient = i;
+    }
+    printf("\n----performance Report----\n");
+    printf("Total Patient Registered : %d\n", patientCount);
+    printf("Level 1 (Normal)  : %d\n", emergencyCount[1]);
+    printf("Level 2 (urgent)  : %d\n", emergencyCount[2]);
+    printf("Level 3 (Critical)  : %d\n", emergencyCount[3]);
+    printf("Total Revenue Earned      :LKR %.2f\n", totalRevenue);
+    printf("Total Discount            :LKR %.2f\n", totalDiscount);
+
+    printf("\nBed Occupancy Percentage Per Ward\n");
+    for (int w = 0; w<4; w++)
+    {
+        int occipied = 0;
+        for (int b = 0; b<bedCapacity[w]; b++)
+        {
+            if(bedOccupancy[w][b]==1)
+            {
+                occipied++;
+            }
+        }
+        printf(" %-28s: %.1f%%\n", wardName[w], (occipied * 100.00)/ bedCapacity[w]);
+    }
+    printf("\nHighest-Paying Patient : %s (PAT-%04d) - LKR %.2f\n", patientName[topPatient], 1001+topPatient, finalAmount[topPatient]);
+}
+
+
+
