@@ -39,6 +39,7 @@ int findFreeBed(int ward);
 void viewBedStatus(void);
 void displayPriorityQueue(void);
 void performanceReport(void);
+void saveBedStatus(void);
 
 int main()
 {
@@ -191,6 +192,8 @@ void registerPatient()
         }
 
         finalAmount[i] = grossTotal[i] - discount[i];
+
+        saveBedStatus();
 
         patientCount++;
 
@@ -380,5 +383,25 @@ void performanceReport(void)
     printf("\nHighest-Paying Patient : %s (PAT-%04d) - LKR %.2f\n", patientName[topPatient], 1001+topPatient, finalAmount[topPatient]);
 }
 
+
+void saveBedStatus(void)
+{
+    FILE *fptr = fopen("beds_status.txt", "w");
+    if (fptr == NULL)
+    {
+        printf("Error cannot open beds_status.txt for writing.\n");
+        return;
+    }
+    for (int w = 0; w < 4; w++)
+    {
+        for (int b = 0; b < bedCapacity[w]; b++)
+        {
+            fprintf(fptr, "%d", bedOccupancy[w][b]);
+        }
+        fprintf(fptr, "\n");
+    }
+    fclose(fptr);
+    printf("Bed status saved successfully\n");
+}
 
 
