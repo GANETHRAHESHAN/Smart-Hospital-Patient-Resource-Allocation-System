@@ -90,6 +90,7 @@ void registerPatient()
      if (patientCount >=100)
      {
           printf("Patient records are full. Cannot register more patients.\n");
+          return;
      }
 
         printf("--- Patient Registration ---\n");
