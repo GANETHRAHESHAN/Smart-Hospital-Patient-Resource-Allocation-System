@@ -40,9 +40,11 @@ void viewBedStatus(void);
 void displayPriorityQueue(void);
 void performanceReport(void);
 void saveBedStatus(void);
+void loadBedStatus(void);
 
 int main()
 {
+    loadBedStatus();
 
     do {
     printf("\n=============================================================\n");
@@ -396,12 +398,35 @@ void saveBedStatus(void)
     {
         for (int b = 0; b < bedCapacity[w]; b++)
         {
-            fprintf(fptr, "%d", bedOccupancy[w][b]);
+            fprintf(fptr, "%d ", bedOccupancy[w][b]);
         }
         fprintf(fptr, "\n");
     }
     fclose(fptr);
     printf("Bed status saved successfully\n");
+}
+
+
+void loadBedStatus(void)
+{
+    FILE *fptr = fopen("beds_status.txt", "r");
+    if (fptr == NULL)
+    {
+        printf("Notice: 'beds_status.txt' not found.\n");
+        return;
+    }
+    for (int w = 0; w < 4; w++)
+    {
+        for (int b = 0; b < bedCapacity[w]; b++)
+        {
+            if(fscanf(fptr, "%d ", &bedOccupancy[w][b]) != 1)
+            {
+                bedOccupancy[w][b] = 0;
+            }
+        }
+    }
+    fclose(fptr);
+    printf("Bed Status loaded successfully\n");
 }
 
 
