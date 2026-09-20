@@ -1,0 +1,20 @@
+==============================================================
+             SMART HOSPITAL ADMISSION & BILL
+--------------------------------------------------------------
+Patient ID                  :PAT-1001
+Patient Name                :kamal perera
+Age                         :69 Years (15% Subsidy Eligible)
+Specialty                   :Cardiology
+Assigned Ward               :ICU(Intensive Care Unit) (Bed #01)
+Urgency Level               :Level 3 (Critical)
+--------------------------------------------------------------
+Base Consultation Fee       :LKR 4500.00
+Emergency Surcharge         :LKR 2250.00 (50%)
+Ward Stay Cost (5 days)     :LKR 125000.00
+--------------------------------------------------------------
+Gross Total Bill            :LKR 131750.00
+Age Subsidy Discount        :LKR -19762.50 (15%)
+--------------------------------------------------------------
+Final Payable Amount        :LKR 111987.50
+Estimated Waiting Time      :0.00 mins (Immediate Attention)
+==============================================================

@@ -41,6 +41,7 @@ void displayPriorityQueue(void);
 void performanceReport(void);
 void saveBedStatus(void);
 void loadBedStatus(void);
+void appendPatientRecord(int i);
 
 int main()
 {
@@ -197,6 +198,7 @@ void registerPatient()
 
         saveBedStatus();
 
+
         patientCount++;
 
         char emergencyText[3][10] = {"Normal", "Urgent", "Critical"};
@@ -244,7 +246,7 @@ void registerPatient()
         printf("==============================================================\n");
 
 
-
+        appendPatientRecord(i);
      }
 
 
@@ -428,5 +430,63 @@ void loadBedStatus(void)
     fclose(fptr);
     printf("Bed Status loaded successfully\n");
 }
+
+void appendPatientRecord(int i)
+{
+    FILE *fptr = fopen ("patient_records.txt", "a");
+    if (fptr == NULL)
+    {
+        printf("Unable to open 'patient_records.txt' for appending\n");
+        return;
+    }
+        int a = specialtyId[i] - 1;
+        char emergencyText[3][10] = {"Normal", "Urgent", "Critical"};
+        int emergencyPct = (emergencyLevel[i] == 1) ? 0 : (emergencyLevel[i] == 2 ? 20 : 50);
+
+
+        fprintf(fptr, "==============================================================\n");
+        fprintf(fptr, "             SMART HOSPITAL ADMISSION & BILL\n");
+        fprintf(fptr, "--------------------------------------------------------------\n");
+        fprintf(fptr, "Patient ID                  :PAT-%d\n", 1001+i);
+        fprintf(fptr, "Patient Name                :%s\n", patientName[i]);
+        fprintf(fptr, "Age                         :%d Years %s\n", patientAge[i], (patientAge[i] < 5 || patientAge[i] > 65) ? "(15% Subsidy Eligible)" : "");
+        fprintf(fptr, "Specialty                   :%s\n", specialtyName[a]);
+        if (isAdmitted[i])
+        {
+            fprintf(fptr, "Assigned Ward               :%s (Bed #%02d)\n", wardName[wardId[i]-1], bedNumber[i]+1);
+        }else
+        {
+            fprintf(fptr, "Assigned ward               :Not Admitted\n");
+        }
+        fprintf(fptr, "Urgency Level               :Level %d (%s)\n", emergencyLevel[i], emergencyText[emergencyLevel[i]-1]);
+        fprintf(fptr, "--------------------------------------------------------------\n");
+        fprintf(fptr, "Base Consultation Fee       :LKR %.2f\n", baseFee[a]);
+        fprintf(fptr, "Emergency Surcharge         :LKR %.2f (%d%%)\n", surcharge[i], emergencyPct);
+        if (isAdmitted[i])
+        {
+            fprintf(fptr, "Ward Stay Cost (%d days)     :LKR %.2f\n", daysAdmitted[i], wardCost[i]);
+        }else
+        {
+            fprintf(fptr, "Ward Stay Cost               :LKR 0.00\n");
+        }
+        fprintf(fptr, "--------------------------------------------------------------\n");
+        fprintf(fptr, "Gross Total Bill            :LKR %.2f\n", grossTotal[i]);
+        fprintf(fptr, "Age Subsidy Discount        :LKR -%.2f (%s)\n",discount[i], discount[i] > 0 ? "15%" : "0%");
+        fprintf(fptr, "--------------------------------------------------------------\n");
+        fprintf(fptr, "Final Payable Amount        :LKR %.2f\n", finalAmount[i]);
+        if (waitTime[i] == 0)
+        {
+            fprintf(fptr, "Estimated Waiting Time      :0.00 mins (Immediate Attention)\n");
+        }else
+        {
+            fprintf(fptr, "Estimated Waiting Time      :%.2f mins\n", waitTime[i]);
+        }
+        fprintf(fptr, "==============================================================\n");
+
+        fclose(fptr);
+        printf("Patient record appendend to 'patient_records.txt'.\n");
+
+}
+
 
 
